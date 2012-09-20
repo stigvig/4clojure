@@ -150,4 +150,17 @@
   (= (my-remove-dup '([2 4] [1 2] [1 3] [1 3])) '([2 4] [1 2] [1 3]))
   (= (my-remove-dup (range 50)) (range 50)))
 
+;;58
+;;Write a function which allows you to create function compositions. The parameter list should take a variable number of functions, and create a function applies them from right-to-left.
 
+(def my-comp
+  (fn [& args]
+    (reduce (fn [tot e] #(tot (apply e %&))) identity args)
+    ))
+
+(unit-test
+  "problem58"
+  (= [3 2 1] ((my-comp rest reverse) [1 2 3 4]))
+  (= 5 ((my-comp (partial + 3) second) [1 2 3 4]))
+  (= true ((my-comp zero? #(mod % 8) +) 3 5 7 9))
+  (= "HELLO" ((my-comp #(.toUpperCase %) #(apply str %) take) 5 "hello world")))
