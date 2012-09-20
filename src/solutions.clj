@@ -177,3 +177,20 @@
   (= [21 6 1] ((my-juxt + max min) 2 3 5 1 6 4))
   (= ["HELLO" 5] ((my-juxt #(.toUpperCase %) count) "hello"))
   (= [2 6 4] ((my-juxt :a :c :b) {:a 2, :b 4, :c 6, :d 8 :e 10})))
+
+;;54
+;;Write a function which returns a sequence of lists of x items each. Lists of less than x items should not be returned.
+
+(def my-partition
+  (fn fun [x l]
+    (if (< (count l) x)
+      '()
+      (let [[a & as] (split-at x l)]
+        (cons a (fun x (first as))))))
+  )
+
+(unit-test
+  "problem54"
+  (= (my-partition 3 (range 9)) '((0 1 2) (3 4 5) (6 7 8)))
+  (= (my-partition 2 (range 8)) '((0 1) (2 3) (4 5) (6 7)))
+  (= (my-partition 3 (range 8)) '((0 1 2) (3 4 5))))
