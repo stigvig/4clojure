@@ -194,3 +194,16 @@
   (= (my-partition 3 (range 9)) '((0 1 2) (3 4 5) (6 7 8)))
   (= (my-partition 2 (range 8)) '((0 1) (2 3) (4 5) (6 7)))
   (= (my-partition 3 (range 8)) '((0 1 2) (3 4 5))))
+
+;;21
+;;Write a function which returns the Nth element from a sequence.
+
+(def my-nth
+  #(first (drop %2 %)))
+
+(unit-test
+  "problem21"
+  (= (my-nth '(4 5 6 7) 2) 6)
+  (= (my-nth [:a :b :c] 0) :a)
+  (= (my-nth [1 2 3 4] 1) 2)
+  (= (my-nth '([1 2] [3 4] [5 6]) 2) [5 6]))
