@@ -164,3 +164,16 @@
   (= 5 ((my-comp (partial + 3) second) [1 2 3 4]))
   (= true ((my-comp zero? #(mod % 8) +) 3 5 7 9))
   (= "HELLO" ((my-comp #(.toUpperCase %) #(apply str %) take) 5 "hello world")))
+
+;;59
+;;Take a set of functions and return a new function that takes a variable number of arguments and returns a sequence containing the result of applying each function left-to-right to the argument list.
+
+(def my-juxt
+  (fn [& funs] (fn [& args] (map #(apply % args) funs)))
+  )
+
+(unit-test
+  "problem59"
+  (= [21 6 1] ((my-juxt + max min) 2 3 5 1 6 4))
+  (= ["HELLO" 5] ((my-juxt #(.toUpperCase %) count) "hello"))
+  (= [2 6 4] ((my-juxt :a :c :b) {:a 2, :b 4, :c 6, :d 8 :e 10})))
