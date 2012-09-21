@@ -236,3 +236,62 @@
   (= (my-flatten '((1 2) 3 [4 [5 6]])) '(1 2 3 4 5 6))
   (= (my-flatten ["a" ["b"] "c"]) '("a" "b" "c"))
   (= (my-flatten '((((:a))))) '(:a)))
+
+;;#70
+;;Write a function that splits a sentence up into a sorted list of words. Capitalization should not affect sort order and punctuation should be ignored.
+
+(def my-split-words
+  (fn [a] 
+    (sort 
+      String/CASE_INSENSITIVE_ORDER 
+       (.split 
+         (apply 
+           str 
+           (filter 
+             #(not (= (Character/getType %)
+                      Character/OTHER_PUNCTUATION)) 
+             (seq a))) 
+         " "))))
+
+(unit-test
+  "problem70"
+  (= (my-split-words  "Have a nice day.")
+     ["a" "day" "Have" "nice"])
+  (= (my-split-words  "Clojure is a fun language!")
+     ["a" "Clojure" "fun" "is" "language"])
+  (= (my-split-words  "Fools fall for foolish follies.")
+     ["fall" "follies" "foolish" "Fools" "for"]))
+
+;;118
+;;Map is one of the core elements of a functional programming language. Given a function f and an input sequence s, return a lazy sequence of (f x) for each element x in s.
+(def my-lazy-map
+  (fn rec [func l]
+    (if (empty? l)
+      l
+      (cons 
+        (func (first l)) 
+        (lazy-seq (rec func (rest l)))))))
+
+(unit-test
+  "problem118"
+  (= [3 4 5 6 7]
+     (my-lazy-map inc [2 3 4 5 6]))
+  (= (repeat 10 nil)
+     (my-lazy-map (fn [_] nil) (range 10)))
+  (= [1000000 1000001]
+     (->> (my-lazy-map  inc (range))
+       (drop (dec 1000000))
+       (take 2))))
+
+;;25
+;;Write a function which returns only the odd numbers from a sequence.
+	
+(def my-only-odd
+  #(filter odd? %))
+
+(unit-test
+  "problem25"
+  (= (my-only-odd #{1 2 3 4 5}) '(1 3 5))
+  (= (my-only-odd [4 2 1 6]) '(1))
+  (= (my-only-odd [2 2 4 6]) '())
+  (= (my-only-odd [1 1 1 3]) '(1 1 1 3)))
