@@ -207,3 +207,15 @@
   (= (my-nth [:a :b :c] 0) :a)
   (= (my-nth [1 2 3 4] 1) 2)
   (= (my-nth '([1 2] [3 4] [5 6]) 2) [5 6]))
+
+;;29
+;;Write a function which takes a string and returns a new string containing only the capital letters.
+
+(def my-get-capital
+  (fn [a] (apply str (filter #(Character/isUpperCase %) (seq a)))))
+
+(unit-test
+  "problem29"
+  (= (my-get-capital "HeLlO, WoRlD!") "HLOWRD")
+  (empty? (my-get-capital "nothing"))
+  (= (my-get-capital "$#A(*&987Zf") "AZ"))
