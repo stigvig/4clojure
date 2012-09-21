@@ -55,7 +55,7 @@
 ;;#55
 ;;Write a function which returns a map containing the number of occurences of each distinct item in a sequence.
 	
-(def my-count
+(def my-occurences
   (fn f
     ([list] (f list {}))
     ([list map]
@@ -65,9 +65,9 @@
 
 (unit-test 
   "problem55"
-  (= (my-count [1 1 2 3 2 1 1]) {1 4, 2 2, 3 1})
-  (= (my-count [:b :a :b :a :b]) {:a 2, :b 3})
-  (= (my-count '([1 2] [1 3] [1 3])) {[1 2] 1, [1 3] 2}))
+  (= (my-occurences [1 1 2 3 2 1 1]) {1 4, 2 2, 3 1})
+  (= (my-occurences [:b :a :b :a :b]) {:a 2, :b 3})
+  (= (my-occurences '([1 2] [1 3] [1 3])) {[1 2] 1, [1 3] 2}))
 
 ;;#46
 ;;Write a higher-order function which flips the order of the arguments of an input function.
@@ -240,7 +240,7 @@
 ;;#70
 ;;Write a function that splits a sentence up into a sorted list of words. Capitalization should not affect sort order and punctuation should be ignored.
 
-(def my-split-words
+(def my-split-sentence
   (fn [a] 
     (sort 
       String/CASE_INSENSITIVE_ORDER 
@@ -255,11 +255,11 @@
 
 (unit-test
   "problem70"
-  (= (my-split-words  "Have a nice day.")
+  (= (my-split-sentence  "Have a nice day.")
      ["a" "day" "Have" "nice"])
-  (= (my-split-words  "Clojure is a fun language!")
+  (= (my-split-sentence  "Clojure is a fun language!")
      ["a" "Clojure" "fun" "is" "language"])
-  (= (my-split-words  "Fools fall for foolish follies.")
+  (= (my-split-sentence  "Fools fall for foolish follies.")
      ["fall" "follies" "foolish" "Fools" "for"]))
 
 ;;118
@@ -295,3 +295,17 @@
   (= (my-only-odd [4 2 1 6]) '(1))
   (= (my-only-odd [2 2 4 6]) '())
   (= (my-only-odd [1 1 1 3]) '(1 1 1 3)))
+
+;;22
+;;Write a function which returns the total number of elements in a sequence.
+
+(def my-count
+  #(reduce (fn [t _] (inc t)) 0 %))
+
+(unit-test
+  "problem22"
+  (= (my-count '(1 2 3 3 1)) 5)
+  (= (my-count "Hello World") 11)
+  (= (my-count [[1 2] [3 4] [5 6]]) 3)
+  (= (my-count '(13)) 1)
+  (= (my-count '(:a :b :c)) 3))
