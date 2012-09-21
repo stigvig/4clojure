@@ -219,3 +219,20 @@
   (= (my-get-capital "HeLlO, WoRlD!") "HLOWRD")
   (empty? (my-get-capital "nothing"))
   (= (my-get-capital "$#A(*&987Zf") "AZ"))
+
+;;28
+;;Write a function which flattens a sequence.
+
+(def my-flatten
+  (fn rec [[x & xs :as l]]
+    (cond
+      (empty? l) l
+      (coll? x) (concat (rec x) (rec xs))
+      true (cons x (rec xs))))
+  )
+
+(unit-test
+  "problem28"
+  (= (my-flatten '((1 2) 3 [4 [5 6]])) '(1 2 3 4 5 6))
+  (= (my-flatten ["a" ["b"] "c"]) '("a" "b" "c"))
+  (= (my-flatten '((((:a))))) '(:a)))
