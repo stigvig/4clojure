@@ -353,3 +353,18 @@
   (= (my-reverse [1 2 3 4 5]) [5 4 3 2 1])
   (= (my-reverse (sorted-set 5 7 2 7)) '(7 5 2))
   (= (my-reverse [[1 2][3 4][5 6]]) [[5 6][3 4][1 2]]))
+
+;;27
+;;Write a function which returns true if the given sequence is a palindrome.
+;;Hint: "racecar" does not equal '(\r \a \c \e \c \a \r)
+
+(def my-is-palindrome?
+  #(= (reverse %) (seq %)))
+
+(unit-test
+  "problem27"
+  (false? (my-is-palindrome? '(1 2 3 4 5)))
+  (true? (my-is-palindrome? "racecar"))
+  (true? (my-is-palindrome? [:foo :bar :foo]))
+  (true? (my-is-palindrome? '(1 1 3 3 1 1)))
+  (false? (my-is-palindrome? '(:a :b :c))))
