@@ -395,3 +395,17 @@
   (= (my-max 1 8 3 4) 8)
   (= (my-max 30 20) 30)
   (= (my-max 45 67 11) 67))
+
+;;39
+;;Write a function which takes two sequences and returns the first item from each, then the second item from each, then the third, etc.
+
+(def my-interleave
+  #(flatten (map vector % %2))
+  )
+
+(unit-test
+  "problem39"
+  (= (my-interleave [1 2 3] [:a :b :c]) '(1 :a 2 :b 3 :c))
+  (= (my-interleave [1 2] [3 4 5 6]) '(1 3 2 4))
+  (= (my-interleave [1 2 3 4] [5]) [1 5])
+  (= (my-interleave [30 20] [25 15]) [30 25 20 15]))
