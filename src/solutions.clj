@@ -423,3 +423,16 @@
   (= (my-dup [:a :a :b :b]) '(:a :a :a :a :b :b :b :b))
   (= (my-dup [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4]))
   (= (my-dup [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4])))
+
+;;49
+;;Write a function which will split a sequence into two parts.
+
+(def my-split-at
+  #(vector (take % %2) (drop % %2))
+  )
+
+(unit-test
+  "problem49"
+  (= (my-split-at 3 [1 2 3 4 5 6]) [[1 2 3] [4 5 6]])
+  (= (my-split-at 1 [:a :b :c :d]) [[:a] [:b :c :d]])
+  (= (my-split-at 2 [[1 2] [3 4] [5 6]]) [[[1 2] [3 4]] [[5 6]]]))
