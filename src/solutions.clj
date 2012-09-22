@@ -382,3 +382,16 @@
   (= 3 (my-dot-product [1 1 1] [1 1 1]))
   (= 32 (my-dot-product [1 2 3] [4 5 6]))
   (= 256 (my-dot-product [2 5 6] [100 10 1])))
+
+;;38
+;;Write a function which takes a variable number of parameters and returns the maximum value.
+
+(def my-max
+  #(reduce (fn [t e] (if (> e t) e t)) 0 %&)
+  )
+
+(unit-test
+  "problem38"
+  (= (my-max 1 8 3 4) 8)
+  (= (my-max 30 20) 30)
+  (= (my-max 45 67 11) 67))
