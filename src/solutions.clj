@@ -368,3 +368,17 @@
   (true? (my-is-palindrome? [:foo :bar :foo]))
   (true? (my-is-palindrome? '(1 1 3 3 1 1)))
   (false? (my-is-palindrome? '(:a :b :c))))
+
+;;143
+;;Create a function that computes the dot product of two sequences. You may assume that the vectors will have the same length.
+
+(def my-dot-product
+  #(apply + (map * % %2))
+  )
+
+(unit-test
+  "problem143"
+  (= 0 (my-dot-product [0 1 0] [1 0 0]))
+  (= 3 (my-dot-product [1 1 1] [1 1 1]))
+  (= 32 (my-dot-product [1 2 3] [4 5 6]))
+  (= 256 (my-dot-product [2 5 6] [100 10 1])))
