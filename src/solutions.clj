@@ -409,3 +409,17 @@
   (= (my-interleave [1 2] [3 4 5 6]) '(1 3 2 4))
   (= (my-interleave [1 2 3 4] [5]) [1 5])
   (= (my-interleave [30 20] [25 15]) [30 25 20 15]))
+
+;;32
+;;Write a function which duplicates each element of a sequence.
+
+(def my-dup
+  #(reduce (fn [t e] (conj (conj t e) e)) [] %)
+  )
+
+(unit-test
+  "problem32"
+  (= (my-dup [1 2 3]) '(1 1 2 2 3 3))
+  (= (my-dup [:a :a :b :b]) '(:a :a :a :a :b :b :b :b))
+  (= (my-dup [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4]))
+  (= (my-dup [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4])))
