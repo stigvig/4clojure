@@ -333,3 +333,23 @@
      {1 7, 2 10, 3 15})
   (= (my-merge-with concat {:a [3], :b [6]} {:a [4 5], :c [8 9]} {:b [7]})
      {:a [3 4 5], :b [6 7], :c [8 9]}))
+
+;;23
+;;Write a function which reverses a sequence.
+
+(def my-reverse
+  (fn rev
+    ([l] (rev l (list)))
+    ([l acc]
+      (if (empty? l)
+        acc
+        (recur (rest l) (cons (first l) acc)))))
+  )
+
+;;Shorter solution -> #(reduce conj '() %)
+
+(unit-test
+  "problem23"
+  (= (my-reverse [1 2 3 4 5]) [5 4 3 2 1])
+  (= (my-reverse (sorted-set 5 7 2 7)) '(7 5 2))
+  (= (my-reverse [[1 2][3 4][5 6]]) [[5 6][3 4][1 2]]))
