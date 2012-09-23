@@ -514,3 +514,18 @@
   (= (my-replicate [4 5 6] 1) '(4 5 6))
   (= (my-replicate [[1 2] [3 4]] 2) '([1 2] [1 2] [3 4] [3 4]))
   (= (my-replicate [44 33] 2) [44 44 33 33]))
+
+;;34
+;;Write a function which creates a list of all integers in a given range.
+
+(def my-range
+  (fn [start end]
+    (loop [res [] i start]
+      (if (= i end) res (recur (conj res i) (inc i)))))
+  )
+
+(unit-test
+  "problem34"
+  (= (my-range 1 4) '(1 2 3))
+  (= (my-range -2 2) '(-2 -1 0 1))
+  (= (my-range 5 8) '(5 6 7)))
