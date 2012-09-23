@@ -449,3 +449,20 @@
   (= (my-drop-nth [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8])
   (= (my-drop-nth [:a :b :c :d :e :f] 2) [:a :c :e])
   (= (my-drop-nth [1 2 3 4 5 6] 4) [1 2 3 5 6]))
+
+;;81
+;;Write a function which returns the intersection of two sets. The intersection is the sub-set of items that each set has in common.
+
+(def my-intersection
+  (fn [s1 s2]
+    (set (keep #(if (contains? s2 %) %) s1))
+    ))
+
+;;short -> (comp set filter)
+
+(unit-test
+  "problem81"
+  (= (my-intersection #{0 1 2 3} #{2 3 4 5}) #{2 3})
+  (= (my-intersection #{0 1 2} #{3 4 5}) #{})
+  (= (my-intersection #{:a :b :c :d} #{:c :e :a :f :d}) #{:a :c :d}))
+
