@@ -436,3 +436,16 @@
   (= (my-split-at 3 [1 2 3 4 5 6]) [[1 2 3] [4 5 6]])
   (= (my-split-at 1 [:a :b :c :d]) [[:a] [:b :c :d]])
   (= (my-split-at 2 [[1 2] [3 4] [5 6]]) [[[1 2] [3 4]] [[5 6]]]))
+
+;;41
+;;Write a function which drops every Nth item from a sequence.
+
+(def my-drop-nth
+  (fn [xs n] (keep-indexed #(if (not= (rem %1 n) (dec n)) %2) xs))
+  )
+
+(unit-test
+  "problem41"
+  (= (my-drop-nth [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8])
+  (= (my-drop-nth [:a :b :c :d :e :f] 2) [:a :c :e])
+  (= (my-drop-nth [1 2 3 4 5 6] 4) [1 2 3 5 6]))
