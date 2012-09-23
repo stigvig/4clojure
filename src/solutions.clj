@@ -499,3 +499,18 @@
   (= (my-symmetric-difference #{:a :b :c} #{}) #{:a :b :c})
   (= (my-symmetric-difference #{} #{4 5 6}) #{4 5 6})
   (= (my-symmetric-difference #{[1 2] [2 3]} #{[2 3] [3 4]}) #{[1 2] [3 4]}))
+
+;;33
+;;Write a function which replicates each element of a sequence a variable number of times.
+
+(def my-replicate
+  (fn [xs n] (apply concat (for [x xs] (repeat n x))))
+  )
+
+(unit-test
+  "problem33"
+  (= (my-replxicate [1 2 3] 2) '(1 1 2 2 3 3))
+  (= (my-replicate [:a :b] 4) '(:a :a :a :a :b :b :b :b))
+  (= (my-replicate [4 5 6] 1) '(4 5 6))
+  (= (my-replicate [[1 2] [3 4]] 2) '([1 2] [1 2] [3 4] [3 4]))
+  (= (my-replicate [44 33] 2) [44 44 33 33]))
