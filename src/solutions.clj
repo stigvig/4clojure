@@ -483,3 +483,19 @@
      #{[1 4] [2 4] [3 4] [1 5] [2 5] [3 5]})
   (= 300 (count (cartesian-product (into #{} (range 10))
                     (into #{} (range 30))))))
+
+;;88
+;;Write a function which returns the symmetric difference of two sets. The symmetric difference is the set of items belonging to one but not both of the two sets.
+
+(def my-symmetric-difference
+  (fn [s1 s2]
+    (set (filter #(not (and (s1 %) (s2 %))) (concat s1 s2)))
+    )
+  )
+
+(unit-test
+  "problem88"
+  (= (my-symmetric-difference #{1 2 3 4 5 6} #{1 3 5 7}) #{2 4 6 7})
+  (= (my-symmetric-difference #{:a :b :c} #{}) #{:a :b :c})
+  (= (my-symmetric-difference #{} #{4 5 6}) #{4 5 6})
+  (= (my-symmetric-difference #{[1 2] [2 3]} #{[2 3] [3 4]}) #{[1 2] [3 4]}))
