@@ -529,3 +529,16 @@
   (= (my-range 1 4) '(1 2 3))
   (= (my-range -2 2) '(-2 -1 0 1))
   (= (my-range 5 8) '(5 6 7)))
+
+;;40
+;;Write a function which separates the items of a sequence by an arbitrary value.
+
+(def my-interpose
+  #(butlast (interleave %2 (repeat %1)))
+  )
+
+(unit-test
+  "problem40"
+  (= (my-interpose 0 [1 2 3]) [1 0 2 0 3])
+  (= (apply str (my-interpose ", " ["one" "two" "three"])) "one, two, three")
+  (= (my-interpose :z [:a :b :c :d]) [:a :z :b :z :c :z :d]))
