@@ -582,3 +582,31 @@
   (= nil (my-tic-tac-toe [[:x :o :x]
                           [:x :o :x]
                           [:o :x :o]])))
+
+;;158
+;Write a function that accepts a curried function of unknown arity n. Return an equivalent function of n arguments. 
+
+(def my-decurry
+  (fn [fun]
+    (fn [& params]
+      (reduce #(%1 %2) fun params)))
+  )
+
+(unit-test
+  "problem158"
+  (= 10 ((my-decurry (fn [a]
+                       (fn [b]
+                         (fn [c]
+                           (fn [d]
+                             (+ a b c d))))))
+          1 2 3 4))
+  (= 24 ((my-decurry (fn [a]
+                       (fn [b]
+                         (fn [c]
+                           (fn [d]
+                             (* a b c d))))))
+          1 2 3 4))
+  (= 25 ((my-decurry (fn [a]
+                       (fn [b]
+                         (* a b))))
+          5 5)))
