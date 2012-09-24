@@ -509,7 +509,7 @@
 
 (unit-test
   "problem33"
-  (= (my-replxicate [1 2 3] 2) '(1 1 2 2 3 3))
+  (= (my-replicate [1 2 3] 2) '(1 1 2 2 3 3))
   (= (my-replicate [:a :b] 4) '(:a :a :a :a :b :b :b :b))
   (= (my-replicate [4 5 6] 1) '(4 5 6))
   (= (my-replicate [[1 2] [3 4]] 2) '([1 2] [1 2] [3 4] [3 4]))
