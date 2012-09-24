@@ -553,7 +553,10 @@
                 x
                 res))
             nil
-            (concat (apply map vector board) board)))
+            (conj
+              (concat (apply map vector board) board)
+              (for [x (range 3)] ((board x) x))
+              (for [[y x] (map vector (range 3) (range 2 -1 -1))] ((board x) y)))))
   )
 
 (unit-test
