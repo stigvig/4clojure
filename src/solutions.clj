@@ -546,7 +546,7 @@
 ;;73
 ;;A tic-tac-toe board is represented by a two dimensional vector. X is represented by :x, O is represented by :o, and empty is represented by :e. A player wins by placing three Xs or three Os in a horizontal, vertical, or diagonal row. Write a function which analyzes a tic-tac-toe board and returns :x if X has won, :o if O has won, and nil if neither player has won.
 
-(def my-tic-tac
+(def my-tic-tac-toe
   (fn [board]
     (reduce (fn [res [x & _ :as all]]
               (if (and (not= x :e) (every? (partial = x) all))
@@ -558,24 +558,24 @@
 
 (unit-test
   "problem73"
-  (= nil (my-tic-tac [[:e :e :e]
-                      [:e :e :e]
-                      [:e :e :e]]))
-  (= :x (my-tic-tac [[:x :e :o]
-                     [:x :e :e]
-                     [:x :e :o]]))
-  (= :o (my-tic-tac [[:e :x :e]
-                     [:o :o :o]
-                     [:x :e :x]]))
-  (= nil (my-tic-tac [[:x :e :o]
-                      [:x :x :e]
-                      [:o :x :o]]))
-  (= :x (my-tic-tac [[:x :e :e]
-                     [:o :x :e]
-                     [:o :e :x]]))
-  (= :o (my-tic-tac [[:x :e :o]
-                     [:x :o :e]
-                     [:o :e :x]]))
-  (= nil (my-tic-tac [[:x :o :x]
-                      [:x :o :x]
-                      [:o :x :o]])))
+  (= nil (my-tic-tac-toe [[:e :e :e]
+                          [:e :e :e]
+                          [:e :e :e]]))
+  (= :x (my-tic-tac-toe [[:x :e :o]
+                         [:x :e :e]
+                         [:x :e :o]]))
+  (= :o (my-tic-tac-toe [[:e :x :e]
+                         [:o :o :o]
+                         [:x :e :x]]))
+  (= nil (my-tic-tac-toe [[:x :e :o]
+                          [:x :x :e]
+                          [:o :x :o]]))
+  (= :x (my-tic-tac-toe [[:x :e :e]
+                         [:o :x :e]
+                         [:o :e :x]]))
+  (= :o (my-tic-tac-toe [[:x :e :o]
+                         [:x :o :e]
+                         [:o :e :x]]))
+  (= nil (my-tic-tac-toe [[:x :o :x]
+                          [:x :o :x]
+                          [:o :x :o]])))
