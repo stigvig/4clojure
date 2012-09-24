@@ -542,3 +542,40 @@
   (= (my-interpose 0 [1 2 3]) [1 0 2 0 3])
   (= (apply str (my-interpose ", " ["one" "two" "three"])) "one, two, three")
   (= (my-interpose :z [:a :b :c :d]) [:a :z :b :z :c :z :d]))
+
+;;73
+;;A tic-tac-toe board is represented by a two dimensional vector. X is represented by :x, O is represented by :o, and empty is represented by :e. A player wins by placing three Xs or three Os in a horizontal, vertical, or diagonal row. Write a function which analyzes a tic-tac-toe board and returns :x if X has won, :o if O has won, and nil if neither player has won.
+
+(def my-tic-tac
+  (fn [board]
+    (reduce (fn [res [x & _ :as all]]
+              (if (and (not= x :e) (every? (partial = x) all))
+                x
+                res))
+            nil
+            (concat (apply map vector board) board)))
+  )
+
+(unit-test
+  "problem73"
+  (= nil (my-tic-tac [[:e :e :e]
+                      [:e :e :e]
+                      [:e :e :e]]))
+  (= :x (my-tic-tac [[:x :e :o]
+                     [:x :e :e]
+                     [:x :e :o]]))
+  (= :o (my-tic-tac [[:e :x :e]
+                     [:o :o :o]
+                     [:x :e :x]]))
+  (= nil (my-tic-tac [[:x :e :o]
+                      [:x :x :e]
+                      [:o :x :o]]))
+  (= :x (my-tic-tac [[:x :e :e]
+                     [:o :x :e]
+                     [:o :e :x]]))
+  (= :o (my-tic-tac [[:x :e :o]
+                     [:x :o :e]
+                     [:o :e :x]]))
+  (= nil (my-tic-tac [[:x :o :x]
+                      [:x :o :x]
+                      [:o :x :o]])))
