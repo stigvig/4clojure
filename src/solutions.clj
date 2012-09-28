@@ -657,3 +657,46 @@
   (= (my-longest-sub-seq [5 6 1 3 2 7]) [5 6])
   (= (my-longest-sub-seq [2 3 3 4 5]) [3 4 5])
   (= (my-longest-sub-seq [7 6 5 4]) []))
+
+;;89
+;;Starting with a graph you must write a function that returns true if it is possible to make a tour of the graph in which every edge is visited exactly once.
+;;The graph is represented by a vector of tuples, where each tuple represents a single edge.
+;;The rules are:
+;;- You can start at any node.
+;;- You must visit each edge exactly once.
+;;- All edges are undirected.
+
+(def my-visit-once?
+  (letfn [(drop-first [pred seq]
+                      (cond
+                        (empty? seq) seq
+                        (pred (first seq)) (rest seq)
+                        true (cons (first seq) (drop-first pred (rest seq)))))
+          (search-frontier [[next & rest] edges pos]
+                           (if (nil? next)
+                             false
+                             (or
+                               (visit-once?
+                                 (drop-first (partial = next) edges)
+                                 (first (filter (partial not= pos) next)))
+                               (search-frontier rest edges pos))))
+          (visit-once?
+            ([[[pos _] & rest :as edges]] (visit-once? edges pos))
+            ([edges pos]
+              (or
+                (empty? edges)
+                (search-frontier (filter #(some (partial = pos) %) edges) edges pos))))]
+         visit-once?)
+  )
+
+(unit-test
+  "problem89"
+  (= true (my-visit-once? [[:a :b]]))
+  (= false (my-visit-once? [[:a :a] [:b :b]]))
+  (= false (my-visit-once? [[:a :b] [:a :b] [:a :c] [:c :a]
+                            [:a :d] [:b :d] [:c :d]]))
+  (= true (my-visit-once? [[1 2] [2 3] [3 4] [4 1]]))
+  (= true (my-visit-once? [[:a :b] [:a :c] [:c :b] [:a :e]
+                           [:b :e] [:a :d] [:b :d] [:c :e]
+                           [:d :e] [:c :f] [:d :f]]))
+  (= false (my-visit-once? [[1 2] [2 3] [2 4] [2 5]])))
