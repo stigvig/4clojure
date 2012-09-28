@@ -634,3 +634,26 @@
   (= 42 (my-infix-math 38 + 48 - 2 / 2))
   (= 8  (my-infix-math 10 / 2 - 1 * 2))
   (= 72 (my-infix-math 20 / 2 + 2 + 4 + 8 - 6 - 10 * 9)))
+
+;;53
+;;Given a vector of integers, find the longest consecutive sub-sequence of increasing numbers. If two sub-sequences have the same length, use the one that occurs first. An increasing sub-sequence must have a length of 2 or greater to qualify.
+
+(def my-longest-sub-seq
+  (fn [seq]
+    (let [[res _] (reduce (fn [[longest current] val]
+                            (if (> val (or (last current) 0))
+                              (let [candidate (conj current val) candidatelen (count candidate)]
+                                (if (and (> candidatelen (count longest)) (> candidatelen 1))
+                                  [candidate candidate]
+                                  [longest candidate]))
+                              [longest [val]]))
+                          [[] []] seq)]
+      res))
+  )
+
+(unit-test
+  "problem53"
+  (= (my-longest-sub-seq [1 0 1 2 3 0 4 5]) [0 1 2 3])
+  (= (my-longest-sub-seq [5 6 1 3 2 7]) [5 6])
+  (= (my-longest-sub-seq [2 3 3 4 5]) [3 4 5])
+  (= (my-longest-sub-seq [7 6 5 4]) []))
